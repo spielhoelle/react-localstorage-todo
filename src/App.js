@@ -1,23 +1,29 @@
-import React, { Component } from 'react';
+import React from 'react';
 import logo from './logo.svg';
 import CreatePost from './CreatePost';
 import './App.css';
 
-class App extends Component {
+export default class App extends React.Component {
   state = {
     form: {},
-    items: []
+    items: JSON.parse(localStorage.getItem("todos")) || []
   }
-  onSubmit = (e) => {
+  onSubmit = e => {
     e.preventDefault();
     console.log(e);
     var form = this.state.form;
     var items = this.state.items;
 
-    items.push(form)
+    var itemObj = {
+      name: this.state.form, 
+      state: false, 
+      createdat: Date.now()
+    }
+    items.push(itemObj)
     this.setState({items})
+    localStorage.setItem("todos", JSON.stringify(items))
   }
-  onChange = (e) => {
+  onChange = e => {
     console.log(e.target.value);
     this.setState({form: e.target.value})
     console.log(this);
@@ -33,10 +39,10 @@ class App extends Component {
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
         <CreatePost onChildSubmit={this.onSubmit} onChildChange={this.onChange}/>
-        {this.state.items.map(i => <div>{i}</div>)}
+        <ul>
+          {this.state.items.map(i => <li>Name: <i>{i.name}</i> |  created: <i>{i.createdat}</i></li>)}
+        </ul>
       </div>
     );
   }
 }
-
-export default App;
