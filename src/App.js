@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
+import CreatePost from './CreatePost';
 import './App.css';
 
 class App extends Component {
@@ -31,13 +32,7 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
-        <form onSubmit={(e) => this.onSubmit(e)}>
-          <label>
-            Name:
-            <input onChange={(e) => this.onChange(e)} type="text" name="name" />
-          </label>
-          <input type="submit" value="Submit" />
-        </form>
+        <CreatePost onChildSubmit={this.onSubmit} onChildChange={this.onChange}/>
         {this.state.items.map(i => <div>{i}</div>)}
       </div>
     );
