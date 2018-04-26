@@ -8,6 +8,13 @@ export default class App extends React.Component {
     form: {},
     items: JSON.parse(localStorage.getItem("todos")) || []
   }
+  handleDelete = (e, clickedItem) => {
+    console.log(e, clickedItem);
+    let items = [...this.state.items];
+    items.splice(items.findIndex(i => i.name === clickedItem.name), 1)
+    this.setState({items})
+    localStorage.setItem("todos", JSON.stringify(items))
+  }
   onSubmit = e => {
     e.preventDefault();
     console.log(e);
@@ -15,8 +22,8 @@ export default class App extends React.Component {
     var items = this.state.items;
 
     var itemObj = {
-      name: this.state.form, 
-      state: false, 
+      name: this.state.form,
+      state: false,
       createdat: Date.now()
     }
     items.push(itemObj)
@@ -40,7 +47,7 @@ export default class App extends React.Component {
         </p>
         <CreatePost onChildSubmit={this.onSubmit} onChildChange={this.onChange}/>
         <ul>
-          {this.state.items.map(i => <li>Name: <i>{i.name}</i> |  created: <i>{i.createdat}</i></li>)}
+          {this.state.items.map(i => <li>Name: <i>{i.name}</i> |  created: <i>{i.createdat}</i><button onClick={(e) => this.handleDelete(e, i)}>x</button></li>)}
         </ul>
       </div>
     );
