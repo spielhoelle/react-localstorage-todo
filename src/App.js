@@ -38,6 +38,7 @@ class App extends Component {
           </label>
           <input type="submit" value="Submit" />
         </form>
+        {this.state.items.map(i => <div>{i}</div>)}
       </div>
     );
   }
