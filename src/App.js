@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import CreatePost from './CreatePost';
 import './App.css';
 
@@ -17,8 +16,6 @@ export default class App extends React.Component {
   }
   onSubmit = e => {
     e.preventDefault();
-    console.log(e);
-    var form = this.state.form;
     var items = this.state.items;
 
     var itemObj = {
@@ -37,17 +34,10 @@ export default class App extends React.Component {
   }
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div className="container">
         <CreatePost onChildSubmit={this.onSubmit} onChildChange={this.onChange}/>
         <ul>
-          {this.state.items.map(i => <li>Name: <i>{i.name}</i> |  created: <i>{i.createdat}</i><button onClick={(e) => this.handleDelete(e, i)}>x</button></li>)}
+          {this.state.items.map(i => <div className="row"><button className="waves-effect waves-light btn white-text" onClick={(e) => this.handleDelete(e, i)}>x</button> Name: <i>{i.name}</i> |  created: <i>{i.createdat}</i> </div>)}
         </ul>
       </div>
     );
